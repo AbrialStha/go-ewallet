@@ -1,0 +1,16 @@
+version: '3.9'
+
+services:
+  postgresdb:
+    container_name: go-ewallet-db-postgress
+    image: postgres
+    restart: always
+    environment:
+      POSTGRES_DB: go-ewallet-db
+      POSTGRES_USER: app-user
+      POSTGRES_PASSWORD: mysecret123
+      PGDATA: /var/lib/postgresql/data
+    volumes:
+      - ./my-db-data:/var/lib/postgresql/data
+    ports:
+      - '5432:5432'

@@ -5,6 +5,7 @@ import (
 	"log"
 	"net/http"
 
+	"github.com/abrialstha/go-ewallet/client"
 	"github.com/gorilla/mux"
 )
 
@@ -20,6 +21,13 @@ func NewServer(listenAddr int) *Server {
 
 func (s *Server) Start() {
 	router := mux.NewRouter()
+
+	//? Connect Db
+	client.PgConnect()
+
+	//? For Testing Purpose, we will call this in the repository
+	db := client.GetPgDB()
+	fmt.Printf("%+v \n", db)
 
 	//? Register the Routes here
 	RegisterUserRouter(router)

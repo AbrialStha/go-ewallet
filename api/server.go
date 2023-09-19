@@ -25,9 +25,8 @@ func (s *Server) Start() {
 	//? Connect Db
 	client.PgConnect()
 
-	//? For Testing Purpose, we will call this in the repository
-	db := client.GetPgDB()
-	fmt.Printf("%+v \n", db)
+	//? Initialize the DB (migration stuff will go here)
+	client.InitPgDB()
 
 	//? Register the Routes here
 	RegisterUserRouter(router)

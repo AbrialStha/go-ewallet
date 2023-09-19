@@ -39,3 +39,32 @@ func PgConnect() {
 func GetPgDB() *sql.DB {
 	return dbClient
 }
+
+func InitPgDB() {
+	//? Create Tables
+	err := createUserTable()
+	if err != nil {
+		panic(err)
+	}
+}
+
+func createUserTable() error {
+	query := `create table if not exists public.user (
+		id serial primary key,
+		first_name varchar(50) not null,
+		middle_name varchar(50),
+		last_name varchar(50) not null,
+		email varchar(200) not null,
+		phone_number varchar(255),
+		password varchar not null,
+		location varchar,
+		age int,
+		gender varchar(20),
+		created_at timestamp,
+		updated_at timestamp,
+		deleted boolean not null default false
+	);`
+
+	_, err := dbClient.Exec(query)
+	return err
+}
